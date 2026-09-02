@@ -275,6 +275,15 @@ List<T>::List() {
 template<typename T>
 List<T>::List(const List<T> &other) {
     // TODO: crear la nueva lista, como una copia independiente de other
+    head = nullptr;
+    tail = nullptr;
+
+    Node* actual = other.head;
+
+    while(actual != nullptr) {
+        this->insert_tail(actual->value);
+        actual = actual.next;
+    }
 }
 
 template<typename T>
