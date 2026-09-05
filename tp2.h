@@ -282,25 +282,56 @@ List<T>::List(const List<T> &other) {
 
     while(actual != nullptr) {
         this->insert_tail(actual->value);
-        actual = actual.next;
+        actual = actual->next;
     }
+
 }
 
 template<typename T>
 List<T> &List<T>::operator=(const List<T> &other) {
     // TODO: reemplazar la lista actual con una copia independiente de other
     // La memoria anterior no debe perderse, sino liberarse correctamente
+    Node* aBorrar = this->head;
+
+    while (aBorrar != nullptr) {
+        Node* siguiente = aBorrar->next;
+        delete aBorrar;
+        aBorrar = siguiente;
+    }
+
+    head = nullptr;
+    tail = nullptr;
+    size = 0;
+
+    Node* recorrerOther = other.head;
+
+    while(recorrerOther != nullptr) {
+        this->insert_tail(recorrerOther->value);
+        recorrerOther = recorrerOther->next;
+    }
+
+    return *this;
 }
 
 template<typename T>
 List<T>::~List() {
     // TODO: liberar todos los nodos que queden con delete.
+    Node* aBorrar = this->head;
+
+    while (aBorrar != nullptr) {
+        Node* siguiente = aBorrar->next;
+        delete aBorrar;
+        aBorrar = siguiente;
+    }
 }
 
 template<typename T>
 bool List<T>::is_empty() const {
     // TODO: devolver si la lista está vacía.
-    return true;
+    if (this->head == nullptr) {
+        return true;
+    }
+    return false;
 }
 
 template<typename T>
