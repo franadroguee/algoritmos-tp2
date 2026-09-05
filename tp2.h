@@ -337,13 +337,30 @@ bool List<T>::is_empty() const {
 template<typename T>
 size_t List<T>::length() const {
     // TODO: devolver la cantidad de elementos.
-    return 0;
+    Node* nodoContador = this->head;
+    contador = 0
+
+    while (nodoContador != nullptr) {
+        contador += 1;
+        nodoContador = nodoContador->siguiente;
+    }
+    return contador;
 }
 
 template<typename T>
 void List<T>::insert_head(const T& value) {
     // TODO: reservar un nodo con new, enlazarlo al principio y
     // actualizar head/tail/size.
+    Node* nodoAEditar = tail;
+    T temp = tail->value;
+
+    for (int i = this->length(); i > 0; i-=1) {
+        nodoAEditar->value = temp;
+        nodoAEditar = nodoAEditar->prev;
+        temp = nodoAEditar ->value;
+    }
+
+    head->value = value;
 }
 
 template<typename T>
