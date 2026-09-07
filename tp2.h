@@ -351,16 +351,21 @@ template<typename T>
 void List<T>::insert_head(const T& value) {
     // TODO: reservar un nodo con new, enlazarlo al principio y
     // actualizar head/tail/size.
-    Node* nodoAEditar = tail;
-    T temp = tail->value;
+    size ++;
+    Node* new_item = new Node(value);
 
-    for (int i = this->length(); i > 0; i-=1) {
-        nodoAEditar->value = temp;
-        nodoAEditar = nodoAEditar->prev;
-        temp = nodoAEditar ->value;
+    if (head == nullptr) {
+        head = new_item;
+        tail = new_item;
+        new_item->prev = nullptr;
+        new_item->next = nullptr;
+        return;
     }
 
-    head->value = value;
+    new_item->next = head;
+    new_item->prev = nullptr;
+    head->prev = new_item;
+    head = new_item;
 }
 
 template<typename T>
