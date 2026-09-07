@@ -400,6 +400,7 @@ T List<T>::pop_tail() {
 template<typename T>
 const T& List<T>::peek_head() const {
     // TODO: devolver el valor del principio.
+    return head->value;
 }
 
 template<typename T>
