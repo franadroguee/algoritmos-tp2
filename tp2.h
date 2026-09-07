@@ -338,11 +338,11 @@ template<typename T>
 size_t List<T>::length() const {
     // TODO: devolver la cantidad de elementos.
     Node* nodoContador = this->head;
-    contador = 0
+    int contador = 0;
 
     while (nodoContador != nullptr) {
         contador += 1;
-        nodoContador = nodoContador->siguiente;
+        nodoContador = nodoContador->next;
     }
     return contador;
 }
