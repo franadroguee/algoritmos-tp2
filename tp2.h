@@ -372,6 +372,21 @@ template<typename T>
 void List<T>::insert_tail(const T& value) {
     // TODO: reservar un nodo con new, enlazarlo al final y
     // actualizar head/tail/size.
+    Node* nuevo_nodo = new Node(value);
+    if (size == 0){
+        head = nuevo_nodo;
+        tail = nuevo_nodo;
+        nuevo_nodo->next = nullptr;
+        nuevo_nodo-> prev = nullptr;
+    }else{
+        tail->next = nuevo_nodo;
+        nuevo_nodo->prev = tail;
+        nuevo_nodo->next = nullptr;
+        tail = nuevo_nodo;   
+    }
+    size++;
+    
+
 }
 
 template<typename T>
@@ -395,6 +410,23 @@ T List<T>::pop_head() {
 template<typename T>
 T List<T>::pop_tail() {
     // TODO: sacar el último nodo (con delete), devolver su valor.
+    T ultimo_valor = tail-> value;
+    if (size == 1){
+        head = nullptr;
+        delete tail;
+        tail = nullptr;
+        size--;
+        return ultimo_valor;
+    }else{
+        Node* previo_tail = tail->prev;
+        previo_tail -> next = nullptr;
+        delete tail;
+        tail = previo_tail;
+        size--;
+        return ultimo_valor;
+        
+    }
+
 }
 
 template<typename T>
@@ -406,6 +438,7 @@ const T& List<T>::peek_head() const {
 template<typename T>
 const T& List<T>::peek_tail() const {
     // TODO: devolver el valor del final.
+    return tail->value;
 }
 
 template <typename T>
@@ -417,6 +450,7 @@ typename List<T>::ListIter List<T>::create_head() {
 template <typename T>
 typename List<T>::ListIter List<T>::create_tail() {
     // TODO: retornar un iterador parado en el final de la lista.
+    return ListIter(this,tail);
 }
 
 /* ---------------------------------------------------------------
