@@ -440,7 +440,9 @@ bool List<T>::ListIter::forward() {
 template <typename T>
 bool List<T>::ListIter::backward() {
     // TODO: retroceder una posición si se puede.
-    return false;
+    if (curr->prev == nullptr) {return false;}
+    curr = curr->prev;
+    return true;
 }
 
 template <typename T>
