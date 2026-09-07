@@ -411,6 +411,7 @@ const T& List<T>::peek_tail() const {
 template <typename T>
 typename List<T>::ListIter List<T>::create_head() {
     // TODO: retornar un iterador parado en el principio de la lista.
+    return ListIter(this, head);
 }
 
 template <typename T>
