@@ -377,6 +377,19 @@ void List<T>::insert_tail(const T& value) {
 template<typename T>
 T List<T>::pop_head() {
     // TODO: sacar el primer nodo (con delete), devolver su valor.
+    Node* temp = head->next;
+    T valor_eliminado = head->value;
+    
+    if (length() == 1) {
+        tail = nullptr;
+    } else {
+        temp->prev = nullptr;
+    }
+
+    delete head;
+    head = temp;
+    size-=1;
+    return valor_eliminado;
 }
 
 template<typename T>
