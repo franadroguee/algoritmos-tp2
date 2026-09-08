@@ -563,6 +563,14 @@ template <typename T>
 T List<T>::ListIter::remove() {
     // TODO: sacar el nodo actual (con delete), reposicionar el iterador
     // y devolver el valor que tenía.
+    T value = curr->value;
+    Node* aBorrar = curr;
+    Node* temp = curr->prev;
+    forward();
+    curr->prev = temp;
+    temp->next = curr;
+    delete aBorrar;
+    
 }
 
 #endif // TP2_H
