@@ -487,6 +487,7 @@ const T&  List<T>::ListIter::peek_current() const {
 template <typename T>
 bool List<T>::ListIter::at_last() const {
     // TODO: devolver si el iterador está en el último elemento.
+    if (curr->next == nullptr) {return true;}
     return false;
 }
 
@@ -499,7 +500,26 @@ bool List<T>::ListIter::at_first() const {
 template <typename T>
 bool List<T>::ListIter::insert_after(const T&value) {
     // TODO: insertar un valor detrás del actual con new.
-    return false;
+    if (curr == nullptr) {
+        list->insert_head(value);
+        curr = list->head;
+        return true;
+    }
+
+    list->size++;
+    Node* newItem = new Node(value);
+    newItem->prev = curr;
+    curr->next = newItem;
+
+    if (curr != list->tail) {
+        Node* nextItem = curr->next;
+        nextItem->prev = newItem;
+        newItem->next = nextItem;
+    } else {
+        newItem->next = nullptr;
+        list->tail = newItem;
+    }
+    return true;
 }
 
 template <typename T>
