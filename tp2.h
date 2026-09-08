@@ -471,7 +471,7 @@ bool List<T>::ListIter::forward() {
     if(curr->next == nullptr){
         return false;
     } else{
-        curr = curr->next,
+        curr = curr->next;
         return true;
     }
         
@@ -545,14 +545,14 @@ bool List<T>::ListIter::insert_before(const T&value) {
         curr = nuevo_nodo;
         list->head = nuevo_nodo;
         list->tail = nuevo_nodo;
-        list->size++
+        list->size++;
         return true;
     }else{
         curr->prev->next = nuevo_nodo;
         nuevo_nodo->prev = curr->prev;
         curr->prev = nuevo_nodo;
         nuevo_nodo->next = curr;
-        list->size++
+        list->size++;
         return true;
     }
     return false;
@@ -570,7 +570,7 @@ T List<T>::ListIter::remove() {
     curr->prev = temp;
     temp->next = curr;
     delete aBorrar;
-    
+    return value;
 }
 
 #endif // TP2_H
