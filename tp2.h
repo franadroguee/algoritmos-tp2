@@ -277,6 +277,7 @@ List<T>::List(const List<T> &other) {
     // TODO: crear la nueva lista, como una copia independiente de other
     head = nullptr;
     tail = nullptr;
+    size = 0;
 
     Node* actual = other.head;
 
@@ -468,6 +469,9 @@ List<T>::ListIter::ListIter(List *list, List::Node *start) {
 template <typename T>
 bool List<T>::ListIter::forward() {
     // TODO: avanzar una posición si se puede.
+    if(curr == nullptr){
+        return false;
+    }
     if(curr->next == nullptr){
         return false;
     } else{
@@ -481,6 +485,9 @@ bool List<T>::ListIter::forward() {
 template <typename T>
 bool List<T>::ListIter::backward() {
     // TODO: retroceder una posición si se puede.
+    if(curr == nullptr){
+        return false;
+    }
     if (curr->prev == nullptr) {return false;}
     curr = curr->prev;
     return true;
@@ -547,6 +554,13 @@ bool List<T>::ListIter::insert_before(const T&value) {
         list->tail = nuevo_nodo;
         list->size++;
         return true;
+    }else if(curr == list->head){
+        list->head = nuevo_nodo;
+        nuevo_nodo->prev = nullptr;
+        nuevo_nodo->next = curr;
+        curr->prev = nuevo_nodo;
+        list->size++;
+        return true;
     }else{
         curr->prev->next = nuevo_nodo;
         nuevo_nodo->prev = curr->prev;
@@ -565,12 +579,39 @@ T List<T>::ListIter::remove() {
     // y devolver el valor que tenía.
     T value = curr->value;
     Node* aBorrar = curr;
-    Node* temp = curr->prev;
-    forward();
-    curr->prev = temp;
-    temp->next = curr;
-    delete aBorrar;
-    return value;
+    if(curr->prev == nullptr && curr->next == nullptr){
+        list-> tail = nullptr;
+        list-> head = nullptr;
+        curr = nullptr;
+        delete aBorrar;
+        list-> size--;
+        return value;
+    }else if(curr->prev == nullptr){
+        Node* temp = curr->prev;
+        list->head = curr-> next;
+        curr = curr->next;
+        curr->prev = temp;
+        delete aBorrar;
+        list->size--;
+        return value;
+    }else if(curr-> next == nullptr){
+        list->tail = curr->prev;
+        curr = curr->prev;
+        curr->next = nullptr;
+        delete aBorrar;
+        list->size--;
+        return value;  
+        
+    }else {
+        Node* temp = curr->prev;
+        forward();
+        curr->prev = temp;
+        temp->next = curr;
+        delete aBorrar;
+        list->size--;
+        return value;
+    }
+    
 }
 
 #endif // TP2_H
