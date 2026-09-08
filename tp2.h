@@ -292,6 +292,7 @@ template<typename T>
 List<T> &List<T>::operator=(const List<T> &other) {
     // TODO: reemplazar la lista actual con una copia independiente de other
     // La memoria anterior no debe perderse, sino liberarse correctamente
+    if (this == &other) {return *this;}
     Node* aBorrar = this->head;
 
     while (aBorrar != nullptr) {
