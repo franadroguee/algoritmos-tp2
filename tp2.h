@@ -526,11 +526,9 @@ bool List<T>::ListIter::insert_after(const T&value) {
         return true;
     }
 
-    list->size++;
     Node* newItem = new Node(value);
     newItem->prev = curr;
-    curr->next = newItem;
-
+    
     if (curr != list->tail) {
         Node* nextItem = curr->next;
         nextItem->prev = newItem;
@@ -539,6 +537,8 @@ bool List<T>::ListIter::insert_after(const T&value) {
         newItem->next = nullptr;
         list->tail = newItem;
     }
+    curr->next = newItem;
+    list->size++;
     return true;
 }
 
