@@ -503,7 +503,7 @@ const T&  List<T>::ListIter::peek_current() const {
 template <typename T>
 bool List<T>::ListIter::at_last() const {
     // TODO: devolver si el iterador está en el último elemento.
-    if (curr->next == nullptr) {return true;}
+    if (curr->next == nullptr || curr == nullptr) {return true;}
     return false;
 }
 
